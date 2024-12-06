@@ -1,6 +1,7 @@
 let counter = 0;
-function increaseAndPrint() {
+function increasPrint() {
   console.log(counter);
-  counter = counter + 1;
+  counter++;
+  setTimeout(increasPrint, 1000);
 }
-setTimeout(increaseAndPrint, 1000);
+setTimeout(increasPrint, 1000);

@@ -20,47 +20,34 @@ class Calculator {
   constructor() {
     this.result = 0;
   }
-
   add(num) {
     this.result += num;
-    return this;
   }
-
   subtract(num) {
     this.result -= num;
-    return this;
   }
-
   multiply(num) {
     this.result *= num;
-    return this;
   }
-
   divide(num) {
     if (num === 0) {
       throw new Error("Division by zero");
     }
     this.result /= num;
-    return this;
   }
-
   clear() {
-    return (this.result = 0);
+    this.result = 0;
   }
-
   getResult() {
     return this.result;
   }
-
   calculate(expression) {
     // Remove spaces from the expression
     expression = expression.replace(/\s+/g, "");
-
     // Check for invalid characters
     if (/[^0-9+\-*/().]/.test(expression)) {
       throw new Error("Invalid characters in expression");
     }
-
     // Check for division by zero
     if (expression.includes("/0")) {
       throw new Error("Division by zero");
@@ -81,7 +68,6 @@ class Calculator {
     if (stack.length !== 0) {
       throw new Error("Unmatched parentheses");
     }
-
     // Evaluate the expression
     return (this.result = eval(expression));
   }

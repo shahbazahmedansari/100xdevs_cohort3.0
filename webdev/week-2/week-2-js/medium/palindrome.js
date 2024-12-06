@@ -9,11 +9,11 @@ function isPalindrome(str) {
     .split("")
     .filter(
       (char) =>
-        char !== "?" &&
-        char !== "!" &&
+        char !== " " &&
         char !== "." &&
         char !== "," &&
-        char !== " "
+        char !== "?" &&
+        char !== "!"
     )
     .join("");
   const reversedStr = filteredStr.split("").reverse().join("");

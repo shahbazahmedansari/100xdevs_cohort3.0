@@ -1,22 +1,22 @@
 const fs = require("fs");
+const filePath = "a.txt";
+const data = "This is new content to be updated in base file";
 
-const data = "This is the content to write to the file.";
-
-function expensiveOperation() {
-  let sum = 0;
-  for (let i = 0; i < 1e8; i++) {
-    // Simulating a very expensive operation
-    sum += i;
-  }
-  console.log("Expensive operation result:", sum);
-}
-
-fs.writeFile("a.txt", data, (err) => {
+fs.writeFile(filePath, data, "utf-8", function (err) {
   if (err) {
-    console.error("Error writing file:", err);
-    return;
+    throw new Error("Unable to wrtie the file");
   }
-  console.log(`Data written to a.txt`);
+  fs.readFile(filePath, "utf-8", function (err, data) {
+    if (err) {
+      throw new Error("Unable to read the file");
+    }
+    console.log(data);
+  });
 });
 
+function expensiveOperation() {
+  for (let i = 0; i < 1000000; i++) {
+    console.log(i);
+  }
+}
 expensiveOperation();

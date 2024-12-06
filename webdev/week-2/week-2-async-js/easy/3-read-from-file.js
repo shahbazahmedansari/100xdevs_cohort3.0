@@ -1,24 +1,15 @@
 const fs = require("fs");
-
 const filePath = "a.txt";
-
-fs.readFile(filePath, "utf8", (err, data) => {
+fs.readFile(filePath, "utf-8", function (err, data) {
   if (err) {
-    console.error("Error reading file:", err);
-    return;
+    throw new Error("Unable to read file");
   }
-  console.log("File content:", data);
-
-  // Perform the expensive operation after file read completes
+  console.log(data);
 });
 
 function expensiveOperation() {
-  let sum = 0;
-  for (let i = 0; i < 1e8; i++) {
-    // Simulating a very expensive operation
-    sum += i;
+  for (let i = 0; i < 1000000; i++) {
+    console.log(i);
   }
-  console.log("Expensive operation result:", sum);
 }
-
 expensiveOperation();

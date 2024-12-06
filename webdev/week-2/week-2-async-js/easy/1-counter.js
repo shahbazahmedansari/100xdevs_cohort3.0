@@ -1,6 +1,8 @@
-let counter = 0;
-function increaseAndPrint() {
-  console.log(counter);
-  counter++;
+function counter() {
+  let counter = 1;
+  setInterval(() => {
+    console.log(counter);
+    counter++;
+  }, 1000);
 }
-setInterval(increaseAndPrint, 1000);
+counter();
