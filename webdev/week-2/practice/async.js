@@ -3,7 +3,7 @@
 // 1. Find sum of 2 numbers:
 
 function sum(a, b) {
-  return a + b;
+    return a + b;
 }
 
 let ans = sum(3, 5);
@@ -12,11 +12,11 @@ console.log(ans);
 // 2. Find sum from 1 to a number:
 
 function totalSum(num) {
-  let ans = 0;
-  for (let i = 0; i <= num; i++) {
-    ans = ans + i;
-  }
-  return ans;
+    let ans = 0;
+    for (let i = 0; i <= num; i++) {
+        ans = ans + i;
+    }
+    return ans;
 }
 
 const soln = totalSum(100);
@@ -25,11 +25,11 @@ console.log(soln);
 // Synchronous code: Synchronous code is executed line by line, in the order it's written. Each operation waits for the previous one to complete before moving on to next one.
 
 function sum2(num) {
-  let ans = 0;
-  for (let i = 0; i <= num; i++) {
-    ans = ans + i;
-  }
-  return ans;
+    let ans = 0;
+    for (let i = 0; i <= num; i++) {
+        ans = ans + i;
+    }
+    return ans;
 }
 
 const ans1 = sum2(100);
@@ -57,7 +57,7 @@ console.log(ans3);
 
 let ans4 = 0;
 for (let i = 0; i < 1000000; i++) {
-  ans4 = ans4 + i;
+    ans4 = ans4 + i;
 }
 console.log(ans4);
 
