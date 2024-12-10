@@ -17,60 +17,68 @@
 */
 
 class Calculator {
-  constructor() {
-    this.result = 0;
-  }
-  add(num) {
-    this.result += num;
-  }
-  subtract(num) {
-    this.result -= num;
-  }
-  multiply(num) {
-    this.result *= num;
-  }
-  divide(num) {
-    if (num === 0) {
-      throw new Error("Division by zero");
-    }
-    this.result /= num;
-  }
-  clear() {
-    this.result = 0;
-  }
-  getResult() {
-    return this.result;
-  }
-  calculate(expression) {
-    // Remove spaces from the expression
-    expression = expression.replace(/\s+/g, "");
-    // Check for invalid characters
-    if (/[^0-9+\-*/().]/.test(expression)) {
-      throw new Error("Invalid characters in expression");
-    }
-    // Check for division by zero
-    if (expression.includes("/0")) {
-      throw new Error("Division by zero");
+    constructor() {
+        this.result = 0;
     }
 
-    // Check for unmatched parentheses
-    let stack = [];
-    for (let char of expression) {
-      if (char === "(") {
-        stack.push(char);
-      } else if (char === ")") {
-        if (stack.length === 0) {
-          throw new Error("Unmatched parentheses");
+    add(num) {
+        this.result += num;
+    }
+
+    subtract(num) {
+        this.result -= num;
+    }
+
+    multiply(num) {
+        this.result *= num;
+    }
+
+    divide(num) {
+        if (num === 0) {
+            throw new Error("Division by zero");
         }
-        stack.pop();
-      }
+        this.result /= num;
     }
-    if (stack.length !== 0) {
-      throw new Error("Unmatched parentheses");
+
+
+    clear() {
+        this.result = 0;
     }
-    // Evaluate the expression
-    return (this.result = eval(expression));
-  }
+
+    getResult() {
+        return this.result;
+    }
+
+    calculate(expression) {
+        // Remove spaces from the expression
+        expression = expression.replace(/\s+/g, "");
+        // Check for invalid characters
+        if (/[^0-9+\-*/().]/.test(expression)) {
+            throw new Error("Invalid characters in expression");
+        }
+        // Check for division by zero
+        if (expression.includes("/0")) {
+            throw new Error("Division by zero");
+        }
+
+        // Check for unmatched parentheses
+        let stack = [];
+        for (let char of expression) {
+            if (char === "(") {
+                stack.push(char);
+            } else if (char === ")") {
+                if (stack.length === 0) {
+                    throw new Error("Unmatched parentheses");
+                }
+                stack.pop();
+            }
+        }
+        if (stack.length !== 0) {
+            throw new Error("Unmatched parentheses");
+        }
+        // Evaluate the expression
+        return (this.result = eval(expression));
+    }
 }
 
 module.exports = Calculator;
