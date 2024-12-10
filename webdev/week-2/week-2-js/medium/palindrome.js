@@ -4,20 +4,20 @@
 */
 
 function isPalindrome(str) {
-  const loweredStr = str.toLowerCase();
-  const filteredStr = loweredStr
-    .split("")
-    .filter(
-      (char) =>
-        char !== " " &&
-        char !== "." &&
-        char !== "," &&
-        char !== "?" &&
-        char !== "!"
-    )
-    .join("");
-  const reversedStr = filteredStr.split("").reverse().join("");
-  return filteredStr === reversedStr;
+    const loweredStr = str.toLowerCase();
+    const filteredStr = loweredStr
+        .split("")
+        .filter(
+            (char) =>
+                char !== " " &&
+                char !== "." &&
+                char !== "," &&
+                char !== "?" &&
+                char !== "!"
+        )
+        .join("");
+    const reversedStr = filteredStr.split("").reverse().join("");
+    return filteredStr === reversedStr;
 }
 
 module.exports = isPalindrome;
