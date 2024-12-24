@@ -1,25 +1,4 @@
-const quizData = [
-  {
-    question: "What is the capital of France?",
-    options: ["Berlin", "Madrid", "Paris", "Rome"],
-    answer: 2,
-  },
-  {
-    question: "Who wrote 'Hamlet'?",
-    options: [
-      "Charles Dickens",
-      "William Shakespeare",
-      "Mark Twain",
-      "Jane Austen",
-    ],
-    answer: 1,
-  },
-  {
-    question: "What is the smallest planet in our solar system?",
-    options: ["Venus", "Mars", "Mercury", "Earth"],
-    answer: 2,
-  },
-];
+
 
 const quizContainer = document.getElementById("quiz");
 
