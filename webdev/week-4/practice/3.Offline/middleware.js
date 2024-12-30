@@ -23,20 +23,16 @@ function isOldEnoughMiddleware(req, res, next) {
     }
 }
 
-
-
 app.get("/ride1", isOldEnoughMiddleware, function (req, res) {
     res.json({
         msge: "You have successfully riden the ride 1",
     });
-
 });
 
 app.get("/ride2", isOldEnoughMiddleware, function (req, res) {
     res.json({
         msge: "You have successfully riden the ride 2",
     });
-
 });
 
 app.listen(3000);

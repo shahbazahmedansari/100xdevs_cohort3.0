@@ -5,12 +5,14 @@ app.use(express.json());
 let users = [
     {
         name: "John",
-        kidneys: [{
-            healthy: true,
-        },
-        {
-            healthy: false,
-        },],
+        kidneys: [
+            {
+                healthy: true,
+            },
+            {
+                healthy: false,
+            },
+        ],
     },
 ];
 
@@ -23,7 +25,7 @@ app.get("/", function (req, res) {
     //         numberOfHealthyKidneys = numberOfHealthyKidneys + 1;
     //     }
     // }
-    const arrNumberOfHealthyKidneys = johnKidneys.filter(kidney => {
+    const arrNumberOfHealthyKidneys = johnKidneys.filter((kidney) => {
         if (kidney.healthy === true) {
             numberOfHealthyKidneys++;
         }
@@ -36,7 +38,6 @@ app.get("/", function (req, res) {
         numberOfUnhealthyKidneys,
     });
 });
-
 
 app.post("/", function (req, res) {
     const isHealthy = req.body.isHealthy;
@@ -65,7 +66,7 @@ app.delete("/", function (req, res) {
             if (users[0].kidneys[i].healthy) {
                 newKidneys.push({
                     healthy: true,
-                })
+                });
             }
         }
         users[0].kidneys = newKidneys;
@@ -73,10 +74,8 @@ app.delete("/", function (req, res) {
     } else {
         res.status(411).json({
             msge: "You have no bad kidneys",
-        })
+        });
     }
-
-
 });
 
 function isThereAtLeastOneUnhealthyKidney() {
