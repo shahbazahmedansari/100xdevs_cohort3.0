@@ -161,11 +161,11 @@ app.listen(3000);
 
 // solution-2:
 
-const ans = arr.filter((n) => {
-    if (n % 2 === 0) {
-        return true;
-    } else {
-        return false;
-    }
-});
-console.log(ans);
+// const ans = arr.filter((n) => {
+//     if (n % 2 === 0) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// });
+// console.log(ans);
