@@ -35,9 +35,6 @@ app.post("/signin", async function (req, res) {
     console.log(user);
 
     if (user) {
-        console.log({
-            id: user._id.toString(),
-        });
         const token = jwt.sign({
             id: user._id.toString(),
         }, JWT_SECRET);
