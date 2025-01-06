@@ -3,7 +3,7 @@
 -   Initialize a new Node.js project.
 -   Add express, jsonwebtoken as a dependency.
 -   Create index.js
--   Add route skeleton for user login, signup and purchase a course, see course.
+-   Add route skeleton for user login, signup and purchase a course, see course, see all courses.
 -   Add routes for admin login, admin signup, create a course, delete a course, add course content.
 -   Add middlewares for user and admin auth.
 -   Add a database (mongodb), use dotenv to store the database connection string
