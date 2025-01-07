@@ -6,11 +6,11 @@ function adminMiddleware(req, res, next) {
     const decodedInfo = jwt.verify(token, JWT_ADMIN_PASSWORD);
 
     if (decodedInfo) {
-        req.userId = decodedInfo.id;
+        req.adminId = decodedInfo.id;
         next();
     } else {
-        res.status(401).json({
-            message: "Incorrect credentials",
+        res.status(403).json({
+            message: "You are not logged in",
         });
     }
 }

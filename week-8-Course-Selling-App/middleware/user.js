@@ -9,8 +9,8 @@ function userMiddleware(req, res, next) {
         req.userId = decodedInfo.id;
         next();
     } else {
-        res.status(401).json({
-            message: "Incorrect credentials",
+        res.status(403).json({
+            message: "You are not logged in",
         });
     }
 }
