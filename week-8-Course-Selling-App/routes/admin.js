@@ -71,7 +71,7 @@ adminRouter.post("/signin", async function (req, res) {
 
         if (foundAdmin && passwordMatch) {
             const token = jwt.sign({
-                id: foundAdmin._id.toString(),
+                id: foundAdmin._id,
             }, JWT_ADMIN_PASSWORD);
 
             res.json({
@@ -93,7 +93,7 @@ adminRouter.post("/signin", async function (req, res) {
 adminRouter.post("/course", adminMiddleware, async function (req, res) {
     const adminId = req.adminId;
 
-    const { title, description, price, imageUrl } = req.nody;
+    const { title, description, price, imageUrl } = req.body;
 
     try {
         // creating a web3 saas in 6 hours for uploading directly image
@@ -128,10 +128,18 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
             imageUrl: imageUrl,
         });
 
-        res.json({
-            courseId: updatedCourse._id,
-            message: "Course updated",
-        });
+        if (updatedCourse) {
+            res.json({
+                courseId: updatedCourse._id,
+                message: "Course updated",
+            });
+        } else {
+            res.status(401).json({
+                message: "Invalid inputs",
+            });
+        }
+
+
     } catch (error) {
         res.status(500).json({
             message: "Internal server error",
