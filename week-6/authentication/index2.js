@@ -11,7 +11,7 @@ app.post("/signup", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = users.find(user => user.username === username);
+    const user = users.find((user) => user.username === username);
 
     if (user) {
         res.json({
@@ -21,21 +21,19 @@ app.post("/signup", function (req, res) {
 
     const newUser = users.push({
         username,
-        password
+        password,
     });
 
     res.json({
         message: "User signed in successfully",
     });
-
-
 });
 
 app.post("/signin", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = users.find(user => user.username === username);
+    const user = users.find((user) => user.username === username);
 
     if (!user) {
         res.status(404).json({
@@ -43,9 +41,12 @@ app.post("/signin", function (req, res) {
         });
     }
 
-    const token = jwt.sign({
-        username: user.username,
-    }, JWT_SECRET);
+    const token = jwt.sign(
+        {
+            username: user.username,
+        },
+        JWT_SECRET
+    );
 
     res.json({
         token,
@@ -58,7 +59,7 @@ app.get("/me", function (req, res) {
     const decodedInformation = jwt.verify(token, JWT_SECRET);
     const username = decodedInformation.username;
 
-    const user = users.find(user => user.username === username);
+    const user = users.find((user) => user.username === username);
 
     if (!user) {
         res.status(404).json({

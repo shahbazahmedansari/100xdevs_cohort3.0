@@ -36,7 +36,7 @@ app.get("/subtract", function (req, res) {
     const sub = a - b;
     res.json({
         message: `Subtraction is ${sub}`,
-    })
+    });
 });
 
 app.listen(3000);

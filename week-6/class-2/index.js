@@ -44,7 +44,7 @@ app.post("/signup", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = users.find(user => user.username === username);
+    const user = users.find((user) => user.username === username);
 
     if (user) {
         res.status(401).json({
@@ -54,7 +54,7 @@ app.post("/signup", function (req, res) {
 
     users.push({
         username,
-        password
+        password,
     });
 
     res.json({
@@ -66,7 +66,9 @@ app.post("/signin", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    const foundUser = users.find(user => user.username === username && user.password === password);
+    const foundUser = users.find(
+        (user) => user.username === username && user.password === password
+    );
 
     if (!foundUser) {
         res.status(404).json({
@@ -74,9 +76,12 @@ app.post("/signin", function (req, res) {
         });
         return;
     } else {
-        const token = jwt.sign({
-            username: foundUser.username,
-        }, JWT_SECRET);
+        const token = jwt.sign(
+            {
+                username: foundUser.username,
+            },
+            JWT_SECRET
+        );
 
         res.json({
             token,
@@ -85,8 +90,7 @@ app.post("/signin", function (req, res) {
 });
 
 app.get("/me", authMiddleware, function (req, res) {
-
-    const user = users.find(user => user.username === req.username);
+    const user = users.find((user) => user.username === req.username);
 
     if (!user) {
         res.status(404).json({
@@ -98,7 +102,6 @@ app.get("/me", authMiddleware, function (req, res) {
             password: user.password,
         });
     }
-
 });
 
 app.listen(3000);

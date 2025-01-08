@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -15,7 +15,6 @@ app.use("/api/v1/user", userRouter);
 app.use("/api/v1/course", courseRouter);
 
 app.use("/api/v1/admin", adminRouter);
-
 
 async function main() {
     await mongoose.connect(process.env.MONGODB_URL); // only start if database is up and running.

@@ -3,18 +3,18 @@ const { JWT_USER_PASSWORD } = require("../config");
 
 function userMiddleware(req, res, next) {
     const token = req.headers.token;
-    const decodedInfo = jwt.verify(token, JWT_USER_PASSWORD);
+    const words = token.split(" ");
+    const jwtToken = words[1];
+    const decodedInfo = jwt.verify(jwtToken, JWT_USER_PASSWORD);
 
-    if (decodedInfo) {
+    if (decodedInfo.username) {
         req.userId = decodedInfo.id;
         next();
     } else {
         res.status(403).json({
-            message: "You are not logged in",
+            message: "You are not authenticated",
         });
     }
 }
 
-module.exports = {
-    userMiddleware: userMiddleware,
-};
+module.exports = userMiddleware;

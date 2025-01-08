@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
 const JWT_SECRET = "iamcrazxy";
@@ -21,7 +21,7 @@ app.post("/signup", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    if (users.find(user => user.username === username)) {
+    if (users.find((user) => user.username === username)) {
         res.json({
             message: "You have already signed up",
         });
@@ -41,12 +41,17 @@ app.post("/signin", function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
 
-    const user = users.find(user => user.username === username && user.password === password);
+    const user = users.find(
+        (user) => user.username === username && user.password === password
+    );
 
     if (user) {
-        const token = jwt.sign({
-            username: username,
-        }, JWT_SECRET); // convert their username to jwt
+        const token = jwt.sign(
+            {
+                username: username,
+            },
+            JWT_SECRET
+        ); // convert their username to jwt
         // user.token = token;
         res.json({
             token: token,
@@ -63,7 +68,7 @@ app.get("/me", function (req, res) {
 
     const decodedInfo = jwt.verify(token, JWT_SECRET);
     const username = decodedInfo.username;
-    const user = users.find(user => user.username === username);
+    const user = users.find((user) => user.username === username);
 
     if (user) {
         res.json({

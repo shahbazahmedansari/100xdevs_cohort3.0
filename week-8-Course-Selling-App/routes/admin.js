@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 const { JWT_ADMIN_PASSWORD } = require("../config");
 const { adminMiddleware } = require("../middleware/admin");
 
-
 adminRouter.post("/signup", async function (req, res) {
     const requiredBody = z.object({
         email: z.string().email().min(3).max(50),
@@ -67,12 +66,18 @@ adminRouter.post("/signin", async function (req, res) {
             email: email,
         });
 
-        const passwordMatch = await bcrypt.compare(password, foundAdmin.password);
+        const passwordMatch = await bcrypt.compare(
+            password,
+            foundAdmin.password
+        );
 
         if (foundAdmin && passwordMatch) {
-            const token = jwt.sign({
-                id: foundAdmin._id,
-            }, JWT_ADMIN_PASSWORD);
+            const token = jwt.sign(
+                {
+                    id: foundAdmin._id,
+                },
+                JWT_ADMIN_PASSWORD
+            );
 
             res.json({
                 message: "Logged in successfully",
@@ -98,7 +103,11 @@ adminRouter.post("/course", adminMiddleware, async function (req, res) {
     try {
         // creating a web3 saas in 6 hours for uploading directly image
         const course = await CourseModel.create({
-            title, description, price, imageUrl, creatorId: adminId,
+            title,
+            description,
+            price,
+            imageUrl,
+            creatorId: adminId,
         });
 
         res.json({
@@ -118,15 +127,18 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
     const { title, description, price, imageUrl, courseId } = req.body;
 
     try {
-        const updatedCourse = await CourseModel.updateOne({
-            _id: courseId,
-            creatorId: adminId,
-        }, {
-            title: title,
-            description: description,
-            price: price,
-            imageUrl: imageUrl,
-        });
+        const updatedCourse = await CourseModel.updateOne(
+            {
+                _id: courseId,
+                creatorId: adminId,
+            },
+            {
+                title: title,
+                description: description,
+                price: price,
+                imageUrl: imageUrl,
+            }
+        );
 
         if (updatedCourse) {
             res.json({
@@ -138,8 +150,6 @@ adminRouter.put("/course", adminMiddleware, async function (req, res) {
                 message: "Invalid inputs",
             });
         }
-
-
     } catch (error) {
         res.status(500).json({
             message: "Internal server error",
@@ -184,7 +194,6 @@ adminRouter.delete("/course", adminMiddleware, async function (req, res) {
 
         res.json({
             message: "Deleted the course",
-
         });
     } catch (error) {
         res.status(500).json({

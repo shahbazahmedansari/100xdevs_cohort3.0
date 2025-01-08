@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "secret";
 
-
 function authMiddleware(req, res, next) {
     const token = req.headers.token;
     const decodedInformation = jwt.verify(token, JWT_SECRET);

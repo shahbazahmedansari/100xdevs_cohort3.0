@@ -1,12 +1,11 @@
 const express = require("express");
 const app = express();
 
-
 let requestCounter = 0;
 
 function requestIncreaser(req, res, next) {
     requestCounter = requestCounter + 1;
-    req.name = "randomShahbaz123"
+    req.name = "randomShahbaz123";
     console.log(`Total number of requests = ${requestCounter}`);
     next();
 }
@@ -50,5 +49,5 @@ app.use(express.json());
 let middleware = express.json();
 app.use(middleware);
 // express.json() is a function which calls another function hence we have to call it with brackets.
-// OR 
+// OR
 // use body-parser library to parse the json data.

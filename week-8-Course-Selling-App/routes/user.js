@@ -20,7 +20,7 @@ userRouter.post("/signup", async function (req, res) {
 
     if (!parsedInputBody.success) {
         res.status(401).json({
-            message: "Incorrect inputs"
+            message: "Incorrect inputs",
         });
     }
 
@@ -70,13 +70,18 @@ userRouter.post("/signin", async function (req, res) {
                 message: "User not found",
             });
         }
-        const passwordMatch = await bcrypt.compare(password, foundUser.password);
+        const passwordMatch = await bcrypt.compare(
+            password,
+            foundUser.password
+        );
 
         if (foundUser && passwordMatch) {
-
-            const token = jwt.sign({
-                id: foundUser._id.toString(),
-            }, JWT_USER_PASSWORD);
+            const token = jwt.sign(
+                {
+                    id: foundUser._id.toString(),
+                },
+                JWT_USER_PASSWORD
+            );
 
             res.json({
                 token,
@@ -102,7 +107,7 @@ userRouter.get("/purchases", userMiddleware, async function (req, res) {
     });
 
     const coursesData = await CourseModel.find({
-        _id: { $in: purchases.map(course => course.courseId) }
+        _id: { $in: purchases.map((course) => course.courseId) },
     });
 
     res.json({

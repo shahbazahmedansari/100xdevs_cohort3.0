@@ -13,11 +13,29 @@ app.post("/signup", async function (req, res) {
     try {
         const requiredBody = z.object({
             username: z.string().email(),
-            password: z.string().min(8, { message: "Password must be atleast 8 characters long " }).max(20, { message: "Password must be at most 20 characters long" }).refine((password) => /A-Z/.test(password), { message: "Password must contain at least one uppercase letter" }).refine((password) => /a-z/.test(password), { message: "Password must contain atleast one lowercase letter" }).refine((password) => /[0-9]/.test(password), {
-                message: "Password must contain at least one number",
-            }).refine((password) => /[!@#$%^&*]/.test(password), {
-                message: "Password must contain at least one special character",
-            }),
+            password: z
+                .string()
+                .min(8, {
+                    message: "Password must be atleast 8 characters long ",
+                })
+                .max(20, {
+                    message: "Password must be at most 20 characters long",
+                })
+                .refine((password) => /A-Z/.test(password), {
+                    message:
+                        "Password must contain at least one uppercase letter",
+                })
+                .refine((password) => /a-z/.test(password), {
+                    message:
+                        "Password must contain atleast one lowercase letter",
+                })
+                .refine((password) => /[0-9]/.test(password), {
+                    message: "Password must contain at least one number",
+                })
+                .refine((password) => /[!@#$%^&*]/.test(password), {
+                    message:
+                        "Password must contain at least one special character",
+                }),
             name: z.string(),
         });
         // const parsedData = requiredBody.parse(req.body);
@@ -30,7 +48,6 @@ app.post("/signup", async function (req, res) {
             });
             return;
         }
-
 
         const username = req.body.username;
         const password = req.body.password;
@@ -72,9 +89,12 @@ app.post("/signin", async function (req, res) {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (passwordMatch) {
-        const token = jwt.sign({
-            id: user._id.toString(),
-        }, JWT_SECRET);
+        const token = jwt.sign(
+            {
+                id: user._id.toString(),
+            },
+            JWT_SECRET
+        );
         res.json({
             token,
         });
@@ -95,7 +115,6 @@ app.post("/todo", authMiddleware, async function (req, res) {
         done: done,
         userId: userId,
     });
-
 
     res.json({
         message: "Todo added",
