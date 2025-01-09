@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://admin:shahbaz7890@cluster0.cktkc6b.mongodb.net/todos_app');
+mongoose.connect(process.env.MONGODB_URL);
 
 // Define schemas
 
