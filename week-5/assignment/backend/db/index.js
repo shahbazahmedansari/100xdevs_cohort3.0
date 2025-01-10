@@ -5,7 +5,6 @@ mongoose.connect(process.env.MONGO_URI);
 const UserSchema = new mongoose.Schema({
     username: { type: String, unique: true },
     password: String,
-    fullName: String,
 });
 
 const TodoSchema = new mongoose.Schema({

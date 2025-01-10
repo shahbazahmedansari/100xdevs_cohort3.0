@@ -3,7 +3,9 @@ const { userMiddleware } = require("../middleware/user");
 const { Todo } = require("../db/index");
 const todoRouter = Router();
 
-todoRouter.post("/", userMiddleware, async (req, res) => {
+appendFile.use(userMiddleware);
+
+todoRouter.post("/", async (req, res) => {
     try {
         const { title, done } = req.body;
         const userId = req.userId;
@@ -25,21 +27,26 @@ todoRouter.post("/", userMiddleware, async (req, res) => {
     }
 });
 
-todoRouter.put("/", userMiddleware, async (req, res) => {
+todoRouter.put("/", async (req, res) => {
     try {
-        const { title, done } = req.body;
-        const userId = req.userId;
+        const { id } = req.params;
+        const updatePayload = req.body;
 
-        const updatedTodo = await Todo.updateOne({
-            userId: userId,
-        }, {
-            title: title,
-            done: done,
-        });
+        // Basic input check
+        if (typeof updatePayload.completed === 'undefined') {
+            return res.status(400).json({
+                msg: "You must provide a completed status.",
+            });
+        }
+
+
+        const result = await Todo.updateOne(
+            { _id: id },
+            { completed: updatePayload.completed }
+        );
 
         res.json({
-            message: "Todo updated successfully",
-            todoId: updatedTodo._id,
+            msg: "Todo marked as completed.",
         });
     } catch (error) {
         res.status(500).json({
@@ -48,7 +55,7 @@ todoRouter.put("/", userMiddleware, async (req, res) => {
     }
 });
 
-todoRouter.get("/", userMiddleware, async (req, res) => {
+todoRouter.get("/", async (req, res) => {
     try {
         const userId = req.userId;
         const todos = await Todo.find({

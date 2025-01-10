@@ -10,7 +10,6 @@ userRouter.post("/signup", async (req, res) => {
     const requiredInputs = z.object({
         username: z.string().email().min(3).max(30),
         password: z.string().min(3).max(30),
-        fullName: z.string().min(3).max(30),
     });
 
     const parsedInputs = requiredInputs.safeParse(req.body);
@@ -21,7 +20,7 @@ userRouter.post("/signup", async (req, res) => {
         });
     }
 
-    const { username, password, fullName } = req.body;
+    const { username, password } = req.body;
 
     try {
         const hashedPassword = await bcrypt.hash(password, 5);
@@ -38,7 +37,6 @@ userRouter.post("/signup", async (req, res) => {
         const newUser = await User.create({
             username,
             password: hashedPassword,
-            fullName,
         });
 
         res.json({
