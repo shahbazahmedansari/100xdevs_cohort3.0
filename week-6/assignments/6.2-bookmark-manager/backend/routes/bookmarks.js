@@ -1,26 +1,34 @@
+let bookmarks = []; // in memory space
 
-import express from 'express';
-import cors from 'cors';
-import { addBookmark, deleteBookmark, getAllBookmarks } from './routes/bookmarks.js'; // importing callback functions for routes
-const app = express();
-const PORT = 3001;
+export async function addBookmark(req, res, next) {
+    try {
+        const { category, url } = req.body;
+        if (!category || !url) {
+            return res.status(400).json({ error: 'Category and Url are required' });
+        }
 
-app.use(cors());
-app.use(express.json());
+        const newBookmark = { id: currentId++, category, url }; // Use the same ID counter as todos
+        bookmarks.push(newBookmark);
+        return res.status(201).json(newBookmark);
+    } catch (error) {
+        return res.status(500).json({ error: "An error occurred while adding the bookmark" });
+    }
+}
 
+export async function deleteBookmark(req, res, next) {
+    try {
+        const { id } = req.params;
+        const bookmarkIndex = bookmarks.findIndex(bookmark => bookmark.id == id); // Use 'id' for consistency
+        if (bookmarkIndex === -1) {
+            return res.status(404).json({ error: 'Bookmark not found' });
+        }
+        bookmarks.splice(bookmarkIndex, 1);
+        return res.status(200).json({ message: 'Bookmark deleted successfully' });
+    } catch (error) {
+        return res.status(500).json({ error: "An error occurred while deleting the bookmark" });
+    }
+}
 
-// Get all bookmarks
-app.get('/bookmarks', getAllBookmarks);
-
-// Add a new bookmark
-app.post('/bookmarks', addBookmark);
-
-
-// Delete a bookmark
-app.delete('/bookmarks/:id', deleteBookmark);
-
-//  TODO: Can u implement searching bookmark and favorite and unfavorite bookmark route ??
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+export async function getAllBookmarks(req, res, next) {
+    res.json(bookmarks);
+}
