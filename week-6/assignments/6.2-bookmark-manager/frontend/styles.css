@@ -73,10 +73,6 @@ button {
 	background-color: #48455b;
 }
 
-button.favorite-btn {
-	/*start here  */
-}
-
 button.delete-btn {
 	padding: 20px;
 	background-color: red;
