@@ -7,7 +7,7 @@ function Navbar() {
             <Logo />
             <div className="products">
                 <a href="#">Products</a>
-                <button>Die Now</button>
+                <button className="button">Die Now</button>
             </div>
         </div>
     );
