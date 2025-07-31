@@ -1,25 +1,22 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import userRouter from './routes/userRoutes';
+import contentRouter from './routes/contentRoutes';
+import brainShareRouter from './routes/shareRoutes';
 
 dotenv.config();
 
 const app = express();
 
-const PORT = process.env.PORT || 8000;
+const PORT: number = Number(process.env.PORT) || 8000;
 
-app.post('/api/v1/signup', (req, res) => {});
+app.use(express.json());
+app.use(cors());
 
-app.post('/api/v1/signin', (req, res) => {});
-
-app.post('/api/v1/content', (req, res) => {});
-
-app.get('/api/v1/content', (req, res) => {});
-
-app.delete('/api/v1/content', (req, res) => {});
-
-app.post('/api/v1/brain/share', (req, res) => {});
-
-app.get('/api/v1/brain/:shareLink', (req, res) => {});
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/content', contentRouter);
+app.use('/api/v1/brain/', brainShareRouter);
 
 app.listen(PORT, () => {
 	console.log(`Server started running on port ${PORT}`);
