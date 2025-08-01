@@ -1,8 +1,7 @@
 // create user models and schemas here
 import mongoose, { Types } from 'mongoose';
 
-const mongodbConnectionString =
-	'mongodb+srv://admin:shahbaz7890@cluster0.cktkc6b.mongodb.net/brainly';
+const mongodbConnectionString = '';
 
 mongoose
 	.connect(mongodbConnectionString)
@@ -50,13 +49,13 @@ const contentSchema = new mongoose.Schema({
 		required: true,
 	},
 	usreId: {
-		type: Types.ObjectId,
+		type: mongoose.Types.ObjectId,
 		required: true,
 		ref: 'User',
 	},
 	tags: [
 		{
-			type: Types.ObjectId,
+			type: mongoose.Types.ObjectId,
 			ref: 'Tag',
 		},
 	],
@@ -71,7 +70,7 @@ const linkSchema = new mongoose.Schema({
 		unique: true,
 	},
 	userId: {
-		type: Types.ObjectId,
+		type: mongoose.Types.ObjectId,
 		required: true,
 		ref: 'User',
 	},
