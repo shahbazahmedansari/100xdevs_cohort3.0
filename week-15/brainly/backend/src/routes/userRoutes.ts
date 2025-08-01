@@ -1,12 +1,12 @@
 import { User } from '../db';
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const userRouter = Router();
 
-userRouter.post('/signup', async (req, res) => {
+userRouter.post('/signup', async (req: Request, res: Response) => {
 	const requestInputs = z.object({
 		username: z.email().min(3).max(30),
 		password: z.string().min(3).max(30),
@@ -56,11 +56,12 @@ userRouter.post('/signup', async (req, res) => {
 		console.log('Error in creating user', error);
 		return res.status(500).json({
 			message: 'Internal server error',
+			error,
 		});
 	}
 });
 
-userRouter.post('/signin', async (req, res) => {
+userRouter.post('/signin', async (req: Request, res: Response) => {
 	const requestBody = z.object({
 		username: z.email().min(3).max(30),
 		password: z.string().min(3).max(30),
@@ -110,6 +111,7 @@ userRouter.post('/signin', async (req, res) => {
 		console.log('Error in logging in the user', error);
 		return res.status(500).json({
 			message: 'Internal server error',
+			error,
 		});
 	}
 });
