@@ -81,7 +81,7 @@ brainShareRouter.get(
 			}
 
 			const user = await User.findOne({
-				_id: link.userId,
+				userId: link.userId,
 			});
 
 			if (!user) {

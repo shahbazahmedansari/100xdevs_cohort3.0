@@ -1,22 +1,19 @@
-import { Button } from './components/ui/Button';
-import { PlusIcon } from './icons/PlusIcon';
+import Button from './components/Button';
+import PlusIcon from './icons/PlusIcon';
+import ShareIcon from './icons/ShareIcon';
 
 function App() {
 	return (
-		<>
+		<div className="flex">
 			<Button
-				title="Add Content"
-				size={'sm'}
-				startIcon={<PlusIcon size={'sm'} />}></Button>
+				text="Share Brain"
+				variant="primary"
+				startIcon={<ShareIcon />}></Button>
 			<Button
-				title="Share"
-				size={'md'}
-				startIcon={<PlusIcon size={'md'} />}></Button>
-			<Button
-				title="Submit"
-				size={'lg'}
-				startIcon={<PlusIcon size={'lg'} />}></Button>
-		</>
+				text="Add Button"
+				variant="secondary"
+				startIcon={<PlusIcon />}></Button>
+		</div>
 	);
 }
 

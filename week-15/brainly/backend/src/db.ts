@@ -1,5 +1,5 @@
 // create user models and schemas here
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 const mongodbConnectionString = '';
 
@@ -76,4 +76,4 @@ const linkSchema = new mongoose.Schema({
 	},
 });
 
-export const LinkModel = mongoose.model('Link', linkSchema);
+export const LinkModel = mongoose.model('Links', linkSchema);
