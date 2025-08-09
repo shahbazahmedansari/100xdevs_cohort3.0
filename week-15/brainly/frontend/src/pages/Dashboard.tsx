@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import CreateContentModal from '../components/CreateContentModal';
 import Button from '../components/Button';
 import PlusIcon from '../icons/PlusIcon';
 import ShareIcon from '../icons/ShareIcon';
 import Card from '../components/Card';
+import { useContent } from '../hooks/useContent';
+import { BACKEND_URL, FRONTEND_URL } from '../config';
+import axios from 'axios';
 
 function Dashboard() {
 	const [modalOpen, setModalOpen] = useState(false);
+	const { contents, refresh } = useContent();
+
+	useEffect(() => {
+		refresh();
+	}, [modalOpen]);
 	return (
 		<div>
 			<Sidebar />
@@ -29,21 +37,32 @@ function Dashboard() {
 					<Button
 						text="Share Brain"
 						variant="primary"
-						startIcon={<ShareIcon />}></Button>
+						startIcon={<ShareIcon />}
+						onClick={async () => {
+							const response = await axios.post(
+								`${BACKEND_URL}/api/v1/brain/share`,
+								{
+									share: true,
+								},
+								{
+									headers: {
+										Authorization: localStorage.getItem('token'),
+									},
+								},
+							);
+							const shareUrl = `${FRONTEND_URL}/share/${response.data.hash}`;
+							alert(shareUrl);
+						}}></Button>
 				</div>
 
-				<div className="flex gap-4">
-					<Card
-						type="twitter"
-						link="https://x.com/kirat_tw/status/1949929340256301366"
-						title="First tweet"
-					/>
-
-					<Card
-						type="youtube"
-						title="First Video"
-						link="https://www.youtube.com/watch?v=y-4CG-ptHq4"
-					/>
+				<div className="flex gap-4 flex-wrap">
+					{contents.map(({ type, link, title }) => (
+						<Card
+							type={type}
+							title={title}
+							link={link}
+						/>
+					))}
 				</div>
 			</div>
 		</div>
